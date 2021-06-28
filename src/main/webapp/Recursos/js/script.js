@@ -3,6 +3,7 @@ $(document).ready(function () {
 });
 
 let vp = 0;
+let idalum;
 
 function listar() {
   $.get("AlumnoController", { opc: 1 }, function (data) {
@@ -21,9 +22,9 @@ function listar() {
           "</td><td>" +
           x[i].telefono +
           "</td><td><a href='#' onclick='editar(" +
-          x[i].idrol +
+          x[i].idalum +
           ")'><i class='far fa-edit'></i></a></td><td><a href='#' onclick='eliminar(" +
-          x[i].idrol +
+          x[i].idalum +
           ")'><i class='fas fa-trash-alt'></i></a></td></tr>"
       );
     }
@@ -31,7 +32,6 @@ function listar() {
 }
 
 $("#agregar").click(function () {
-  alert("Pulsado");
   if (vp == 0) {
     let param = {
       nombre: $("#nombre").val(),
@@ -61,10 +61,16 @@ $("#agregar").click(function () {
     });
     limpiar();
   } else {
-    alert($("#id").val() + "/" + $("#nomrol").val());
+    alert(idalum);
     $.post(
-      "rc",
-      { id: $("#id").val(), rol: $("#nomrol").val(), opc: 4 },
+      "AlumnoController",
+      {
+        id:idalum,
+        nombre: $("#nombre").val(),
+        direccion: $("#direccion").val(),
+        telefono: $("#telefono").val(),
+        opc: 4,
+      },
       function (data) {
         listar();
         limpiar();
@@ -73,22 +79,28 @@ $("#agregar").click(function () {
   }
 });
 
-// function editar(id) {
-//   $("#boton2").html("Editar");
-//   $.get("rc", { id: id, opc: 3 }, function (data) {
-//     var x = JSON.parse(data);
-//     $("#nomrol").val(x.nomrol);
-//     $("#id").val(x.idrol);
-//   });
-// }
-// function eliminar(id) {
-//   $.get("rc", { id: id, opc: 5 }, function () {
-//     listar();
-//   });
-// }
+function editar(id) {
+  $("#agregar").html("Editar");
+  $.get("AlumnoController", { id: id, opc: 3 }, function (data) {
+    let x = JSON.parse(data);
+    idalum=x.idalum;
+    $("#nombre").val(x.nombre);
+    $("#direccion").val(x.direccion);
+    $("#telefono").val(x.telefono);
+    vp = 1;
+    alert(idalum);
+  });
+}
+
+ function eliminar(id) {
+   $.get("AlumnoController", { id: id, opc: 5 }, function () {
+     listar();
+   });
+ }
+
 function limpiar() {
   $("#nombre").val("");
   $("#direccion").val("");
   $("#telefono").val("");
-  $("#nomrol").focus();
+  $("#nombre").focus();
 }

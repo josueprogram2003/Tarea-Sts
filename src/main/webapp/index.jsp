@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tabla Alumno</title>
     <link
-      href="recursos/faw/web-fonts-with-css/css/fontawesome-all.css"
+      href="./Recursos/faw/web-fonts-with-css/css/fontawesome-all.css"
       rel="stylesheet"
       type="text/css"
     />

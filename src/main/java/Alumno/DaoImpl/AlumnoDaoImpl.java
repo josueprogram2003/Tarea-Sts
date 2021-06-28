@@ -74,7 +74,7 @@ public class AlumnoDaoImpl implements AlumnoDao{
 	public Alumno read(int id) {
 		// TODO Auto-generated method stub
 		Alumno a = new Alumno();
-		String SQL = "select *from Alumno where idalum="+id+";";
+		String SQL = "select * from Alumno where idalum="+id+";";
 		try {
 			cx = Conexion.getConexion();
 			pst = cx.prepareStatement(SQL);

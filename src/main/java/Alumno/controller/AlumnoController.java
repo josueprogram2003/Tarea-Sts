@@ -51,7 +51,9 @@ public class AlumnoController extends HttpServlet {
 		case 4://modificar
 			Alumno r = new Alumno();
 			r.setIdalum(Integer.parseInt(request.getParameter("id")));
-			r.setNombre(request.getParameter("rol"));
+			r.setNombre(request.getParameter("nombre"));
+			r.setDireccion(request.getParameter("direccion"));
+			r.setTelefono(request.getParameter("telefono"));
 			out.println(gson.toJson(adao.update(r)));
 			break;
 		case 5://eliminar
